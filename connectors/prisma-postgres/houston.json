@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "name": "Prisma Postgres",
+  "files": [
+    "connector.luau"
+  ],
+  "icon": "icon.svg",
+  "config": {
+    "access": {
+      "default": "read-only",
+      "description": "Prisma Postgres credentials always have full access to the database. Read-only runs every statement in a read-only transaction, so agents cannot change data or schema.",
+      "label": "Access",
+      "options": [
+        {
+          "label": "Read-only",
+          "value": "read-only"
+        },
+        {
+          "label": "Read and write",
+          "value": "read-write"
+        }
+      ],
+      "order": 1,
+      "type": "string"
+    },
+    "host": {
+      "default": "db.prisma.io",
+      "description": "Use the direct connection unless your plan's direct connection limit is reached.",
+      "label": "Connection",
+      "options": [
+        {
+          "label": "Direct (recommended)",
+          "value": "db.prisma.io"
+        },
+        {
+          "label": "Pooled",
+          "value": "pooled.db.prisma.io"
+        }
+      ],
+      "order": 2,
+      "required": true,
+      "type": "string"
+    },
+    "username": {
+      "description": "The part of your connection string between postgres:// and the first colon.",
+      "label": "Username",
+      "max_length": 256,
+      "order": 3,
+      "required": true,
+      "type": "string"
+    },
+    "password": {
+      "description": "The part of your connection string between the colon after the username and @db.prisma.io.",
+      "label": "Password",
+      "order": 4,
+      "required": true,
+      "type": "secret"
+    }
+  },
+  "proxy": [
+    {
+      "match": {
+        "protocol": "postgres"
+      },
+      "action": {
+        "connection": {
+          "host": "{{config.host}}",
+          "port": 5432,
+          "database": "postgres",
+          "user": "{{config.username}}",
+          "password": "{{config.password}}",
+          "tls": {
+            "mode": "verify-full"
+          }
+        }
+      }
+    }
+  ]
+}
