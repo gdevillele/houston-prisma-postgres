@@ -38,7 +38,7 @@
           "value": "pooled.db.prisma.io"
         }
       ],
-      "order": 2,
+      "order": 1,
       "required": true,
       "type": "string"
     },
@@ -46,14 +46,14 @@
       "description": "The part of your connection string between postgres:// and the first colon.",
       "label": "Username",
       "max_length": 256,
-      "order": 3,
+      "order": 2,
       "required": true,
       "type": "string"
     },
     "password": {
       "description": "The part of your connection string between the colon after the username and @db.prisma.io.",
       "label": "Password",
-      "order": 4,
+      "order": 3,
       "required": true,
       "type": "secret"
     }
